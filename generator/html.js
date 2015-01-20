@@ -1,9 +1,8 @@
 // Generate HTML(DOM) by Cheerio
-
-"use strict";
 var cheerio = require('cheerio');
 
 (function ($) {
+	"use strict";
 	// your JavaScript code for generate DOM
 	$('body').append('<div></div>'); //starting for example
 
