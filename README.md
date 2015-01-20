@@ -17,3 +17,7 @@ npm install -g grunt-cli
 1. Write Unit Testing by library [Jasmine](http://jasmine.github.io/)
 1. Write Function Testing by library [PioneerJS](http://pioneerjs.com/)
 1. Write Build by library [GruntJS](http://gruntjs.com/)
+
+#### Outcome Goal
+
+A static file page that contains structure, skin, logic, unit testing and function testing.
