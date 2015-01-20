@@ -7,6 +7,8 @@ install some node packages for build in the global.
 
 ```
 npm install -g grunt-cli
+
+npm install
 ```
 
 #### Workshop Plan

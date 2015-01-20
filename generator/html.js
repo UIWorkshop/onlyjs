@@ -4,9 +4,8 @@
 var cheerio = require('cheerio');
 
 (function ($) {
-	$.root();
-
 	// your JavaScript code for generate DOM
+	$('body').append('<div></div>'); //starting for example
 
 	return $.html();
 })(cheerio.load('<body></body>'));
