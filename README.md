@@ -7,7 +7,11 @@ install some node packages for build in the global.
 
 ```
 npm install -g grunt-cli
+```
 
+
+```
+cd onlyjs
 npm install
 ```
 
@@ -23,3 +27,29 @@ npm install
 #### Outcome Goal
 
 A static file page that contains structure, skin, logic, unit testing and function testing.
+
+#### Get Start
+
+You can run following command to watch your JavaScript files, and then check them by jshint when you changing them.
+
+```
+grunt default
+```
+
+or
+
+```
+grunt
+```
+
+
+You can run following command to start a server and open the page in a browser.
+
+```
+grunt server
+```
+
+###### Write HTML
+
+To run `grunt html` to generate HTML file by html.js.
+
