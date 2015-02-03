@@ -3,4 +3,8 @@
 node_modules
 
 #build
-outcome
+app
+
+#mac
+.DS_Store
+**/.DS_Store
