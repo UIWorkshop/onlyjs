@@ -26,4 +26,4 @@ module.exports = (grunt) ->
         html = eval grunt.file.read('generator/html.js')
         grunt.file.write 'app/index.html', html
     grunt.registerTask 'server', ['connect:dev']
-    grunt.registerTask 'default', ['watch', 'jshint']
+    grunt.registerTask 'default', ['watch', 'jshint', 'html']
