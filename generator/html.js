@@ -2,13 +2,15 @@
 var cheerio = require('cheerio');
 var importfiles = '<link rel="stylesheet" href="style.css">';
 (function ($) {
-	"use strict";
-	var ul = $('ul').append('<ul></ul>');
-	var li = $('li').append('<li></li>');
-	
-	$('h2').addclass('Head')
-	var main_title = $('h2.title').text('ONLY USE JAVASCRIPT TO CREATE THE WORLD!');
-	var body = main_title
-	var html = header
-	return $.html(header, body);
+	// var $html
+	var $header = $('<header>').addClass('header');
+	function nav_title (title) {
+		return $('<a>').append('<h1>' + title + '</h1>');
+	}
+	var $title = nav_title('demo');
+	$header.append($title)
+	var $main = $('<main>').addClass('wrapper');
+	var $footer = $('<footer>').addClass('footer').append(nav_title('demo'));
+	$('body').append($main).append($footer);
+	return $.html();
 })(cheerio.load('<head>' + importfiles + '</head><body></body>'));
