@@ -28,6 +28,8 @@ npm install
 
 A static file page that contains structure, skin, logic, unit testing and function testing.
 
+![Mockup](https://github.com/UIWorkshop/onlyjs/blob/master/mockup.jpg)
+
 #### Get Start
 
 You can run following command to watch your JavaScript files, and then check them by jshint when you changing them.
