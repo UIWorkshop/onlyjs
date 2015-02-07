@@ -42,7 +42,7 @@ var cheerio = require('cheerio');
 	// footer content
 	$footer.append($('<p>').addClass('copyright').attr('id', 'copyright').append($copyright));
 
-	$('body').append($background_img);
+	$('body').attr('background', 'https://raw.githubusercontent.com/UIWorkshop/onlyjs/zjw/source/hero.jpg').attr('style', 'width:100%;height:100%');
 	$('body').append($header).append($main).append($footer);
 	return $.html();
 })(cheerio.load('<body></body>'));
