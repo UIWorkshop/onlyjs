@@ -3,10 +3,19 @@ var cheerio = require('cheerio');
 
 (function ($) {
 	"use strict";
-	// your JavaScript code for generate DOM
-	$('body').append('<div class="main"></div>');
-	 //starting for example
-	$('.main').append('<header></header>');
+
+	$('body').addClass('main');
+
+	function createHtmlConstruct() {
+		var $header = $('<header>');
+		var $main = $('<main>').addClass('content');
+		var $footer = $('<footer>');
+
+		$('body').append($header).append($main).append($footer);
+	} 
+
+	createHtmlConstruct();
+	
 
 	$('header').append('<div class="opt-left"></div>');
 	$('header', 'div').addClass('opt-left');
@@ -23,7 +32,6 @@ var cheerio = require('cheerio');
 
 
 
-	$('.main').append('<main class="content"></main>');
 	$('.content').append('<div class="container"></div>');
 	$('.container').append('<h2>only use JavaScript create the world</h2>');
 	$('.container').append('<nav class="center-nav"></nav>');
@@ -35,6 +43,8 @@ var cheerio = require('cheerio');
 	$('.center-nav').append('<button>PioneerJS</button>');
 	$('.center-nav').append('<button>GruntJS</button>');
 
-	$('.main').append('<footer></footer>');
+
+
+
 	return $.html();
 })(cheerio.load('<body></body>'));
