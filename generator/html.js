@@ -56,19 +56,24 @@ var cheerio = require('cheerio');
 		$('header').append($optRight);
 	}
 
-	
+	function createMainContent() {
+		var $optCenter = createOptionContainer("container");
+		var $nav = createNav("center-nav");
+
+		var listContent = new Array("CheerioJS","AbsurdJS","VanillaJS","Jasmine","PioneerJS","GruntJS");
+		var $list = createList(listContent);
+
+		$nav.append($list);
+		$optRight.append($nav);
+		$('main').append($optRight);
+	}	
+
 
 	createHtmlConstruct();
 	createOptLeft();
 	createOptRight();
+	createMainContent(); 
 
-
-
-	
-	var $first_ul = createList(listContent);
-
-	$('body').append($first_ul);	
-	
 
 	// $('header').append('<div class="opt-left"></div>');
 	// $('header', 'div').addClass('opt-left');
