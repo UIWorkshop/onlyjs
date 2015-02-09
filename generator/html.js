@@ -16,17 +16,56 @@ var cheerio = require('cheerio');
 
 	function createList(listContent) {
 		var $ul = $('<ul>');
-		$.each(listContent, function(index, value){
-    		var $li = $('<li>').text(value);
+
+		for (var i = 0; i<listContent.lengths;i++){
+			var $li = $('<li>').text(listContent[i]);
     		$ul.append($li);
-		});
+		}
 
 		return $ul;
 	}
 
-	createHtmlConstruct();
+	function createOptionContainer(className) {
+		var $opt = $('<div>').addClass(className);
+		return $opt;
+	}
 
-	var $first_ul = createList(["home","other","about"]);
+	function createNav(className) {
+		var $nav = $('<nav>').addClass(className);
+		return $nav;
+	}
+
+	function createOptLeft() {
+		var $optLeft = createOptionContainer("opt-left");
+		var $img = $('<img>');
+		var $h1 = $('<h1>');
+		$optLeft.append($img).append($h1);
+
+		$('header').append($optLeft);
+	}
+
+	function createOptRight() {
+		var $optRight = createOptionContainer("opt-right");
+		var $nav = createNav("header-nav");
+
+		var listContent = new Array("home","other","about");
+		var $list = createList(listContent);
+
+		$nav.append($list);
+		$optRight.append($nav);
+		$('header').append($optRight);
+	}
+
+	
+
+	createHtmlConstruct();
+	createOptLeft();
+	createOptRight();
+
+
+
+	
+	var $first_ul = createList(listContent);
 
 	$('body').append($first_ul);	
 	
