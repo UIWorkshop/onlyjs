@@ -58,14 +58,16 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 
 	function createMainContent() {
 		var $optCenter = createOptionContainer("container");
-		var $nav = createNav("center-nav");
 
+		var $h1 = $('<h1>');
+		var $nav = createNav("center-nav");
 		var listContent = new Array("CheerioJS","AbsurdJS","VanillaJS","Jasmine","PioneerJS","GruntJS");
 		var $list = createList(listContent);
-
 		$nav.append($list);
-		$optRight.append($nav);
-		$('main').append($optRight);
+
+		$optCenter.append($h1).append($nav);
+
+		$('.content').append($optCenter);
 	}	
 
 
