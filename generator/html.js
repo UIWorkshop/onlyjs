@@ -50,12 +50,16 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	elm.nav.prepend(elm.navLeft).append(elm.navRight);
 	elm.header.append(elm.nav);
 
-	data.sidebarLinks.forEach(function (link) {
-		link.id = link.name.toLowerCase();
-		return link;
-	});
+	var sidebarLinks = decorateIdForLink(data.sidebarLinks);
 	elm.sidebar = createSidebar(data.sidebarLinks);
 	elm.wrapper.append(elm.sidebar);
+
+	function decorateIdForLink (links) {
+		return links.forEach(function (link) {
+			link.id = link.name.toLowerCase();
+			return link;
+		});
+	}
 
 	function createNavigatorLeft (title) {
 		var $section = _createNavSection('left');
