@@ -17,7 +17,7 @@ var cheerio = require('cheerio');
 	function createList(listContent) {
 		var $ul = $('<ul>');
 
-		for (var i = 0; i<listContent.lengths;i++){
+		for (var i = 0; i<listContent.length;i++){
 			var $li = $('<li>').text(listContent[i]);
     		$ul.append($li);
 		}
