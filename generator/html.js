@@ -37,7 +37,7 @@ var cheerio = require('cheerio');
 
 	function createOptLeft() {
 		var $optLeft = createOptionContainer("opt-left");
-		var $img = $('<img>');
+		var $img = $('<img>').attr('src','../source/Logo.jpg');
 		var $h1 = $('<h1>').text("only JavaScript");
 		$optLeft.append($img).append($h1);
 
