@@ -10,6 +10,35 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 		navLinks: ['Home', 'Other', 'About']
 	};
 
+	var elm = {
+		body: $('body')
+	};
+
+	layout([{
+		tag: 'header',
+		cls: 'header'
+	}, {
+		tag: 'main',
+		cls: 'wrapper'
+	}, {
+		tag: 'footer',
+		cls: 'footer'
+	}]);
+
+	elm.nav = $('<nav>').addClass('navigator');
+	var $navLeftSection = createNavigator('left');
+	var $navRightSection = createNavigator('right');
+	elm.nav.prepend($navLeftSection).append($navRightSection);
+	elm.header.append(elm.nav);
+
+	elm.logo = createLogo();
+	$navLeftSection.append(elm.logo);
+
+	data.navLinks.forEach(function (link) {
+		var $link = createNavLink(link);
+		$navRightSection.append($link);
+	});
+
 	function createNavigator (extendClass) {
 		var $section = $('<section>').addClass('nav-section');
 		if (extendClass) {
@@ -37,26 +66,12 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 		return $anchor;
 	}
 
-	var $header = $('<header>').addClass('header');
-	var $main = $('<main>').addClass('wrapper');
-	var $footer = $('<footer>').addClass('footer');
-	$('body').append($header).append($main).append($footer);
-
-	var $nav = $('<nav>').addClass('navigator');
-	var $navLeftSection = createNavigator('left');
-	var $navRightSection = createNavigator('right');
-	$nav.prepend($navLeftSection).append($navRightSection);
-	$header.append($nav);
-
-	var $logo = createLogo();
-	$navLeftSection.append($logo);
-
-	data.navLinks.forEach(function (link) {
-		var $link = createNavLink(link);
-		$navRightSection.append($link);
-	});
-
-
+	function layout (bodyContainers) {
+		bodyContainers.forEach(function (container) {
+			elm[container.cls] = $('<' + container.tag + '>').addClass(container.cls);
+			elm.body.append($[container.cls]);
+		});
+	}
 
 	return $.html();
 })(cheerio.load('<head>' + importfiles + '</head><body></body>'));
