@@ -54,7 +54,17 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	elm.slogan = wrapperContainer(createSlogan(data.slogan));
 	decorateIdForLink(data.sidebarLinks);
 	elm.sidebar = wrapperContainer(createSidebar(data.sidebarLinks));
-	elm.wrapper.append(elm.slogan).append(elm.sidebar);
+	elm.hero = createHero(elm.slogan, elm.sidebar);
+	elm.wrapper.append(elm.hero);
+
+	function createHero () {
+		var $hero = $('<section>').addClass('hero');
+		for (var index in arguments) {
+			$hero.append(arguments[index]);
+		}
+
+		return $hero;
+	}
 
 	function createSlogan (text) {
 		return $('<h2>').text(text);
