@@ -38,7 +38,7 @@ var cheerio = require('cheerio');
 	function createOptLeft() {
 		var $optLeft = createOptionContainer("opt-left");
 		var $img = $('<img>');
-		var $h1 = $('<h1>');
+		var $h1 = $('<h1>').text("only JavaScript");
 		$optLeft.append($img).append($h1);
 
 		$('header').append($optLeft);
@@ -59,7 +59,7 @@ var cheerio = require('cheerio');
 	function createMainContent() {
 		var $optCenter = createOptionContainer("container");
 
-		var $h1 = $('<h1>');
+		var $h1 = $('<h1>').text("only use JavaScript create the world");
 		var $nav = createNav("center-nav");
 		var listContent = new Array("CheerioJS","AbsurdJS","VanillaJS","Jasmine","PioneerJS","GruntJS");
 		var $list = createList(listContent);
