@@ -26,20 +26,31 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	}]);
 
 	elm.nav = $('<nav>').addClass('navigator');
-	var $navLeftSection = createNavigator('left');
-	var $navRightSection = createNavigator('right');
-	elm.nav.prepend($navLeftSection).append($navRightSection);
+	elm.navLeft = createNavigatorLeft(data.title);
+	elm.navRight = createNavigatorRight(data.navLinks);
 	elm.header.append(elm.nav);
 
-	elm.logo = createLogo();
-	$navLeftSection.append(elm.logo);
 
-	data.navLinks.forEach(function (link) {
-		var $link = createNavLink(link);
-		$navRightSection.append($link);
-	});
+	function createNavigatorLeft (title) {
+		var $section = _createNavSection('left');
+		$section.append(_createLogo(title));
+		elm.nav.prepend($section);
+		return $section;
+	}
 
-	function createNavigator (extendClass) {
+	function createNavigatorRight (links) {
+		var $section = _createNavSection('right');
+
+		links.forEach(function (link) {
+			var $link = _createNavLink(link);
+			$section.append($link);
+		});
+
+		elm.nav.append($section);
+		return $section;
+	}
+
+	function _createNavSection (extendClass) {
 		var $section = $('<section>').addClass('nav-section');
 		if (extendClass) {
 			$section.addClass('nav-' + extendClass);
@@ -47,17 +58,17 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 		return $section;
 	}
 
-	function createLogo () {
+	function _createLogo (title) {
 		var $icon = $('<span>').attr('id', 'logo');
 		$icon.append($('<b>').text(data.js))
 			.append($('<i>').text(data.only));
-		var $title = $('<span>').text(data.title);
+		var $title = $('<span>').text(title);
 		return $('<h1>')
 			.prepend($icon)
 			.append($title);
 	}
 
-	function createNavLink (name, href) {
+	function _createNavLink (name, href) {
 		var $anchor = $('<a></a>');
 		$anchor.attr('href', href || '#');
 		if (name) {
