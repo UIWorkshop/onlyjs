@@ -51,7 +51,7 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	elm.nav.prepend(elm.navLeft).append(elm.navRight);
 	elm.header.append(elm.nav);
 
-	elm.slogan = wrapperContainer(createSlogan(data.slogan));
+	elm.slogan = wrapperContainer(_createHead(data.slogan, 2));
 	decorateIdForLink(data.sidebarLinks);
 	elm.sidebar = wrapperContainer(createSidebar(data.sidebarLinks));
 	elm.hero = createHero(elm.slogan, elm.sidebar);
@@ -65,27 +65,28 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 
 		return $hero;
 	}
+	
+	function createSidebar(items) {
+		var $sidebar = $('<aside>');
+		$sidebar.addClass('sidebar');
+		var $ul = $('<ul>');
+		$sidebar.append($ul);
 
-	function createSlogan (text) {
-		return $('<h2>').text(text);
-	}
-
-	function wrapperContainer (content) {
-		var $container = $('<div>').addClass('container');
-		$container.html(content);
-		return $container;
-	}
-
-	function decorateIdForLink (links) {
-		return links.forEach(function (link) {
-			link.id = link.name.toLowerCase();
-			return link;
+		items.forEach(function (item) {
+			var $list = $('<li>');
+			$list.append(_createLink(item.name, {
+				id: item.id,
+				href: item.href,
+				target: '_blank'
+			}));
+			$ul.append($list);
 		});
+		return $sidebar;
 	}
 
 	function createNavigatorLeft (title) {
 		var $section = _createNavSection('left');
-		$section.append(_createLogo(title));
+		$section.append(_createHead(_createLogo(title)));
 		return $section;
 	}
 
@@ -113,9 +114,20 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 		$icon.append($('<b>').text(data.js))
 			.append($('<i>').text(data.only));
 		var $title = $('<span>').text(title);
-		return $('<h1>')
-			.prepend($icon)
-			.append($title);
+		return $title.add($icon);
+	}
+
+	function wrapperContainer (content) {
+		var $container = $('<div>').addClass('container');
+		$container.html(content);
+		return $container;
+	}
+
+	function decorateIdForLink (links) {
+		return links.forEach(function (link) {
+			link.id = link.name.toLowerCase();
+			return link;
+		});
 	}
 
 	function _createLink (name, attr) {
@@ -127,29 +139,15 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 		return $anchor;
 	}
 
+	function _createHead (content, size) {
+		return $('<h' + (size || 1) + '>').html(content);
+	}
+
 	function layout (bodyContainers) {
 		bodyContainers.forEach(function (container) {
 			elm[container.cls] = $('<' + container.tag + '>').addClass(container.cls);
 			elm.body.append(elm[container.cls]);
 		});
-	}
-
-	function createSidebar(items) {
-		var $sidebar = $('<aside>');
-		$sidebar.addClass('sidebar');
-		var $ul = $('<ul>');
-		$sidebar.append($ul);
-
-		items.forEach(function (item) {
-			var $list = $('<li>');
-			$list.append(_createLink(item.name, {
-				id: item.id,
-				href: item.href,
-				target: '_blank'
-			}));
-			$ul.append($list);
-		});
-		return $sidebar;
 	}
 
 	return $.html();
