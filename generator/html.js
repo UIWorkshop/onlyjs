@@ -7,7 +7,26 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 		title: 'Only JavaScript',
 		js: 'JS',
 		only: 'only',
-		navLinks: ['Home', 'Other', 'About']
+		navLinks: ['Home', 'Other', 'About'],
+		sidebarLinks: [{
+			name: 'Cheerio',
+			href: 'http://cheeriojs.github.io/cheerio/'
+		},{
+			name: 'AbsurdJS',
+			href: 'http://absurdjs.com/'
+		},{
+			name: 'VanillaJS',
+			href: 'http://vanilla-js.com/'
+		},{
+			name: 'Jasmine',
+			href: 'http://jasmine.github.io/'
+		},{
+			name: 'PioneerJS',
+			href: 'http://pioneerjs.com/'
+		},{
+			name: 'GruntJS',
+			href: 'http://gruntjs.com/'
+		}]
 	};
 
 	var elm = {
@@ -30,6 +49,11 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	elm.navRight = createNavigatorRight(data.navLinks);
 	elm.header.append(elm.nav);
 
+	data.sidebarLinks.forEach(function (link) {
+		link.id = link.name.toLowerCase();
+		return link;
+	});
+	elm.wrapper.append(createSidebar(data.sidebarLinks));
 
 	function createNavigatorLeft (title) {
 		var $section = _createNavSection('left');
@@ -42,7 +66,7 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 		var $section = _createNavSection('right');
 
 		links.forEach(function (link) {
-			var $link = _createNavLink(link);
+			var $link = _createLink(link.toUpperCase());
 			$section.append($link);
 		});
 
@@ -68,11 +92,11 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 			.append($title);
 	}
 
-	function _createNavLink (name, href) {
+	function _createLink (name, attr) {
 		var $anchor = $('<a></a>');
-		$anchor.attr('href', href || '#');
+		$anchor.attr('href', '#').attr(attr);
 		if (name) {
-			$anchor.text(name.toUpperCase());
+			$anchor.text(name);
 		}
 		return $anchor;
 	}
@@ -80,8 +104,26 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	function layout (bodyContainers) {
 		bodyContainers.forEach(function (container) {
 			elm[container.cls] = $('<' + container.tag + '>').addClass(container.cls);
-			elm.body.append($[container.cls]);
+			elm.body.append(elm[container.cls]);
 		});
+	}
+
+	function createSidebar(items) {
+		var $sidebar = $('<aside>');
+		$sidebar.addClass('sidebar');
+		elm.sidebar = $('<ul>');
+		$sidebar.append(elm.sidebar);
+
+		items.forEach(function (item) {
+			var $list = $('<li>');
+			$list.append(_createLink(item.name, {
+				id: item.id,
+				href: item.href,
+				target: '_blank'
+			}));
+			elm.sidebar.append($list);
+		});
+		return $sidebar;
 	}
 
 	return $.html();
