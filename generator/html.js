@@ -47,18 +47,19 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	elm.nav = $('<nav>').addClass('navigator');
 	elm.navLeft = createNavigatorLeft(data.title);
 	elm.navRight = createNavigatorRight(data.navLinks);
+	elm.nav.prepend(elm.navLeft).append(elm.navRight);
 	elm.header.append(elm.nav);
 
 	data.sidebarLinks.forEach(function (link) {
 		link.id = link.name.toLowerCase();
 		return link;
 	});
-	elm.wrapper.append(createSidebar(data.sidebarLinks));
+	elm.sidebar = createSidebar(data.sidebarLinks);
+	elm.wrapper.append(elm.sidebar);
 
 	function createNavigatorLeft (title) {
 		var $section = _createNavSection('left');
 		$section.append(_createLogo(title));
-		elm.nav.prepend($section);
 		return $section;
 	}
 
@@ -70,7 +71,6 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 			$section.append($link);
 		});
 
-		elm.nav.append($section);
 		return $section;
 	}
 
@@ -111,8 +111,8 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	function createSidebar(items) {
 		var $sidebar = $('<aside>');
 		$sidebar.addClass('sidebar');
-		elm.sidebar = $('<ul>');
-		$sidebar.append(elm.sidebar);
+		var $ul = $('<ul>');
+		$sidebar.append($ul);
 
 		items.forEach(function (item) {
 			var $list = $('<li>');
@@ -121,7 +121,7 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 				href: item.href,
 				target: '_blank'
 			}));
-			elm.sidebar.append($list);
+			$ul.append($list);
 		});
 		return $sidebar;
 	}
