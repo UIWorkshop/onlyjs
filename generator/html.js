@@ -6,7 +6,8 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	var data = {
 		title: 'Only JavaScript',
 		js: 'JS',
-		only: 'only'
+		only: 'only',
+		navLinks: ['Home', 'Other', 'About']
 	};
 
 	function createNavigator (extendClass) {
@@ -27,6 +28,15 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 			.append($title);
 	}
 
+	function createNavLink (name, href) {
+		var $anchor = $('<a></a>');
+		$anchor.attr('href', href || '#');
+		if (name) {
+			$anchor.text(name.toUpperCase());
+		}
+		return $anchor;
+	}
+
 	var $header = $('<header>').addClass('header');
 	var $main = $('<main>').addClass('wrapper');
 	var $footer = $('<footer>').addClass('footer');
@@ -40,6 +50,11 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 
 	var $logo = createLogo();
 	$navLeftSection.append($logo);
+
+	data.navLinks.forEach(function (link) {
+		var $link = createNavLink(link);
+		$navRightSection.append($link);
+	});
 
 
 
