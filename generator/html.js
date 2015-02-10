@@ -5,6 +5,7 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	"use strict";
 	var data = {
 		title: 'Only JavaScript',
+		slogan: 'Only Use JavaScript To Create The World',
 		js: 'JS',
 		only: 'only',
 		navLinks: ['Home', 'Other', 'About'],
@@ -50,9 +51,20 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	elm.nav.prepend(elm.navLeft).append(elm.navRight);
 	elm.header.append(elm.nav);
 
-	var sidebarLinks = decorateIdForLink(data.sidebarLinks);
-	elm.sidebar = createSidebar(data.sidebarLinks);
-	elm.wrapper.append(elm.sidebar);
+	elm.slogan = wrapperContainer(createSlogan(data.slogan));
+	decorateIdForLink(data.sidebarLinks);
+	elm.sidebar = wrapperContainer(createSidebar(data.sidebarLinks));
+	elm.wrapper.append(elm.slogan).append(elm.sidebar);
+
+	function createSlogan (text) {
+		return $('<h2>').text(text);
+	}
+
+	function wrapperContainer (content) {
+		var $container = $('<div>').addClass('container');
+		$container.html(content);
+		return $container;
+	}
 
 	function decorateIdForLink (links) {
 		return links.forEach(function (link) {
