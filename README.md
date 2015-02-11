@@ -55,3 +55,7 @@ grunt server
 
 To run `grunt html` to generate HTML file by html.js.
 
+###### Write CSS
+
+To run `grunt css` to generate CSS file by style.js.
+
