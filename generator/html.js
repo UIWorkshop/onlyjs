@@ -6,6 +6,8 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 
 	$('body').addClass('main');
 
+
+
 	function createHtmlConstruct() {
 		var $header = $('<header>');
 		var $main = $('<main>').addClass('content');
@@ -16,13 +18,20 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 
 	function createList(listContent) {
 		var $ul = $('<ul>');
-
+		
 		for (var i = 0; i<listContent.length;i++){
-			var $li = $('<li>').text(listContent[i]);
+			var $li = $('<li>');
+			$li.append(createLink(listContent[i], "#"));
     		$ul.append($li);
 		}
 
 		return $ul;
+	}
+
+	function createLink (text,link) {
+		var $a = $('<a>');
+		$a.text(text).attr('href','link');
+		return $a;
 	}
 
 	function createOptionContainer(className) {
@@ -47,9 +56,7 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	function createOptRight() {
 		var $optRight = createOptionContainer("opt-right");
 		var $nav = createNav("header-nav");
-
-		var listContent = new Array("home","other","about");
-		var $list = createList(listContent);
+		var $list = createList(["home","other","about"]);
 
 		$nav.append($list);
 		$optRight.append($nav);
@@ -61,8 +68,7 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 
 		var $h1 = $('<h1>').text("only use JavaScript create the world");
 		var $nav = createNav("center-nav");
-		var listContent = new Array("CheerioJS","AbsurdJS","VanillaJS","Jasmine","PioneerJS","GruntJS");
-		var $list = createList(listContent);
+		var $list = createList(["CheerioJS","AbsurdJS","VanillaJS","Jasmine","PioneerJS","GruntJS"]);
 		$nav.append($list);
 
 		$optCenter.append($h1).append($nav);
