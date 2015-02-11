@@ -9,9 +9,9 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 
 
 	function createHtmlConstruct() {
-		var $header = $('<header>');
+		var $header = $('<header>').addClass('header');
 		var $main = $('<main>').addClass('content');
-		var $footer = $('<footer>');
+		var $footer = $('<footer>').addClass('footer');
 
 		$('body').append($header).append($main).append($footer);
 	} 
@@ -30,7 +30,7 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 
 	function createLink (text,link) {
 		var $a = $('<a>');
-		$a.text(text).attr('href','link');
+		$a.text(text).attr('href','#');
 		return $a;
 	}
 
