@@ -6,8 +6,6 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 
 	$('body').addClass('main');
 
-
-
 	function createHtmlConstruct() {
 		var $header = $('<header>').addClass('header');
 		var $main = $('<main>').addClass('content');
