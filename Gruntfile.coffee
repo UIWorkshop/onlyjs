@@ -13,6 +13,10 @@ module.exports = (grunt) ->
             css:
                 files: 'generator/style.js',
                 tasks: 'css'
+        copy:
+            source:
+                src: 'source/*',
+                dest: 'app/'
         connect:
             dev:
                 options:
@@ -29,6 +33,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-jshint'
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-connect'
+    grunt.loadNpmTasks 'grunt-contrib-copy'
     grunt.loadNpmTasks 'grunt-absurd'
 
     grunt.registerTask 'html', 'generate html', ()->
@@ -37,4 +42,4 @@ module.exports = (grunt) ->
 
     grunt.registerTask 'css', ['absurd:task']
     grunt.registerTask 'server', ['connect:dev']
-    grunt.registerTask 'default', ['jshint', 'html', 'css', 'watch']
+    grunt.registerTask 'default', ['jshint', 'html', 'css', 'copy:source','watch']
