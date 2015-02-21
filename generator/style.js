@@ -1,17 +1,21 @@
 module.exports = function(api) {
+    // variable
     var color = {
         green: '#59cfbb',
         white: '#f5f5f5',
-        black: '#333333'
+        black: '#333333',
+        gray: '#cccccc'
     };
     var size = {
-        container: '1280px',
+        container: ['1280px'],
         header: '80px',
         nav: '120px',
         link: {
             width: '160px',
             height: '100px'
-        }
+        },
+        border: '1px',
+        space: '120px'
     };
     var font = {
         title: '2em',
@@ -20,6 +24,32 @@ module.exports = function(api) {
         link: '1.1em'
     };
 
+    // mixin
+    function bar (height, position) {
+        var style = {
+            display: 'block',
+            position: 'absolute',
+            zIndex: '100',
+            height: height,
+            width: '100%'
+        };
+        style[position] = 0;
+        return style;
+    }
+
+    function timesPixel (pixel, times) {
+        if (typeof pixel == 'string') {
+            pixel = [pixel];
+        }
+        var sum = 0;
+        pixel.forEach(function (val) {
+            sum += parseFloat(val);
+        });
+
+        return sum*times + 'px';
+    }
+
+    // reset
     var reset = {};
     var allElement = [
         'html', 'body', 'div', 'span', 'applet', 'object', 'iframe',
@@ -68,6 +98,72 @@ module.exports = function(api) {
     	borderSpacing: 0
     };
 
-    api.add(reset);
+    var layout = {
+        '.header': bar(size.header, 'top'),
+        '.wrapper': {
+            overflow: 'hidden',
+            minHeight: '100%',
+            section: {
+                overflow: 'hidden'
+            }
+        },
+        '.footer': bar(size.header, 'bottom'),
 
+        '#logo': {
+            display: 'inline-block',
+            width: size.header,
+            height: size.header
+        },
+        '.navigator': {
+            height: size.header,
+            lineHeight: size.header,
+            '.nav-left': {
+                float: 'left'
+            },
+            '.nav-right': {
+                float: 'right'
+            },
+            '.nav-section a': {
+                display: 'inline-block',
+                width: size.nav,
+                height: '100%',
+                textAlign: 'center'
+            }
+        },
+        '.hero': {
+            minHeight: '80%',
+            marginTop: size.header,
+            backgroundColor: color.gray,
+            h2: {
+                textAlign: 'center',
+                margin: size.space + ' 0'
+            }
+        },
+        '.sidebar': {
+            ul: {
+                width: timesPixel([size.link.width, size.border], 6),
+                height: size.link.height,
+                margin: '0 auto',
+                li: {
+                    float: 'left',
+                    borderRight: size.border + ' solid transparent',
+                    a: {
+                        display: 'inline-block',
+                        width: size.link.width,
+                        height: size.link.height,
+                        lineHeight: size.link.height,
+                        textAlign: 'center'
+                    }
+                }
+            }
+        },
+        '.container': {
+            overflow: 'hidden',
+            width: size.container[0],
+            margin: '0 auto'
+        }
+    };
+
+    api.add(reset);
+    api.add(layout);
 };
