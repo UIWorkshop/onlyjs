@@ -65,7 +65,7 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 
 		return $hero;
 	}
-	
+
 	function createSidebar(items) {
 		var $sidebar = $('<aside>');
 		$sidebar.addClass('sidebar');
@@ -111,8 +111,8 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 
 	function _createLogo (title) {
 		var $icon = $('<span>').attr('id', 'logo');
-		$icon.append($('<b>').text(data.js))
-			.append($('<i>').text(data.only));
+		$icon.append($('<i>').text(data.only))
+			.append($('<b>').text(data.js));
 		var $title = $('<span>').text(title);
 		return $title.add($icon);
 	}
