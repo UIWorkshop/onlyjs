@@ -15,7 +15,8 @@ module.exports = function(api) {
             height: '100px'
         },
         border: '1px',
-        space: '120px'
+        space: '120px',
+        margin: '20px'
     };
     var font = {
         title: '2em',
@@ -135,7 +136,6 @@ module.exports = function(api) {
         '.footer': bar(size.header, 'bottom'),
 
         '#logo': {
-            display: 'inline-block',
             width: size.header,
             height: size.header
         },
@@ -153,6 +153,11 @@ module.exports = function(api) {
                 width: size.nav,
                 height: '100%',
                 textAlign: 'center'
+            },
+            span: {
+                float: 'left',
+                display: 'block',
+                marginRight: size.margin
             }
         },
         '.hero': {
@@ -191,16 +196,35 @@ module.exports = function(api) {
 
     var sidebarLink = linkColor(color.black);
     sidebarLink.backgroundColor = opacity(color.white, 0.4);
+    var logo = {
+        overflow: 'hidden',
+        backgroundColor: color.green,
+        color: color.white,
+        'i, b': {
+            display: 'inline-block',
+            position: 'relative'
+        },
+        i: {
+            top: '-2px',
+            left: '-19px',
+            transform: 'rotate(-30deg)',
+            fontSize: '2em',
+            opacity: 0.3
+        },
+        b: {
+            top: '-66px',
+            left: '48px',
+            fontSize: '2.4em',
+            letterSpacing: '-34px'
+        }
+    };
     var skin = {
         '.navigator': {
             backgroundColor: color.black,
             color: color.green,
             '.nav-section a':  linkColor(color.green)
         },
-        '#logo': {
-            backgroundColor: color.green,
-            color: color.white
-        },
+        '#logo': logo,
         h1: {
             fontSize: font.title
         },
