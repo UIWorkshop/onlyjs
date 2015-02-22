@@ -19,7 +19,7 @@ module.exports = function(api) {
     };
     var font = {
         title: '2em',
-        nav: '1.3em',
+        nav: '1.2em',
         slogan: '3em',
         link: '1.1em'
     };
@@ -47,6 +47,31 @@ module.exports = function(api) {
         });
 
         return sum*times + 'px';
+    }
+
+    function linkColor (color) {
+        var LINK_SELECTOR = '&:link, &:active, &:visited';
+        var style = {
+            fontSize: font.nav,
+            color: color,
+            textDecoration: 'none'
+        };
+        style[LINK_SELECTOR] = {
+            color: color
+        };
+
+        return style;
+    }
+
+    function opacity (hex, opacity) {
+        var step = hex.length > 6 ? 2 : 1;
+        var rgba = [];
+        for (var i = 1; i <= 3; i++) {
+            var char = hex.slice(i*step - 1, (i+1)*step - 1);
+            rgba.push(parseInt(char, 16));
+        }
+        rgba.push(opacity);
+        return 'rgba(' + rgba.join(',') + ')';
     }
 
     // reset
@@ -164,6 +189,29 @@ module.exports = function(api) {
         }
     };
 
+    var sidebarLink = linkColor(color.black);
+    sidebarLink.backgroundColor = opacity(color.white, 0.4);
+    var skin = {
+        '.navigator': {
+            backgroundColor: color.black,
+            color: color.green,
+            '.nav-section a':  linkColor(color.green)
+        },
+        '#logo': {
+            backgroundColor: color.green,
+            color: color.white
+        },
+        h1: {
+            fontSize: font.title
+        },
+        '.hero h2': {
+            fontSize: font.slogan,
+            color: color.white
+        },
+        '.sidebar a': sidebarLink
+    };
+
     api.add(reset);
     api.add(layout);
+    api.add(skin);
 };
