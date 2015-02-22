@@ -75,6 +75,17 @@ module.exports = function(api) {
         return 'rgba(' + rgba.join(',') + ')';
     }
 
+    function webFont (fontName) {
+        var fontFileName = fontName.replace(/"|"/g, '').replace(/\s/g, '\\ ');
+        return {
+            '@font-face': {
+                fontFamily: fontName,
+                'src ': 'url(source/' + fontFileName + '.ttf?)',
+                src: 'url(source/' + fontFileName + '.ttf?) format(truetype)'
+            }
+        };
+    }
+
     // reset
     var reset = {};
     var allElement = [
@@ -205,20 +216,28 @@ module.exports = function(api) {
             position: 'relative'
         },
         i: {
-            top: '-2px',
-            left: '-19px',
+            top: 0,
+            left: '-30px',
             transform: 'rotate(-30deg)',
             fontSize: '2em',
+            letterSpacing: '-11px',
             opacity: 0.3
         },
         b: {
-            top: '-66px',
-            left: '48px',
-            fontSize: '2.4em',
-            letterSpacing: '-34px'
+            top: '-43px',
+            left: '40px',
+            fontSize: '2.2em',
+            wordBreak: 'break-all',
+            width: '3px',
+            lineHeight: '10px',
+            textIndent: '6px'
         }
     };
+    var webFontFamily = '\"Trajan Pro Regular\"';
     var skin = {
+        body: {
+            fontFamily: webFontFamily
+        },
         '.navigator': {
             backgroundColor: color.black,
             color: color.green,
@@ -235,7 +254,10 @@ module.exports = function(api) {
         '.sidebar a': sidebarLink
     };
 
+    var fontFace = webFont(webFontFamily);
+
     api.add(reset);
+    api.add(fontFace);
     api.add(layout);
     api.add(skin);
 };
