@@ -59,3 +59,7 @@ To run `grunt html` to generate HTML file by html.js.
 
 To run `grunt css` to generate CSS file by style.js.
 
+###### Write JavaScript
+
+To run `grunt js` to generate JavaScript file by javascript.js.
+
