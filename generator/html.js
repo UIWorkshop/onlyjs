@@ -1,6 +1,7 @@
 // Generate HTML(DOM) by Cheerio
 var cheerio = require('cheerio');
 var importfiles = '<link rel="stylesheet" href="style.css">';
+importfiles += '<script src="script.js">';
 (function ($) {
 	"use strict";
 	// your JavaScript code for generate DOM

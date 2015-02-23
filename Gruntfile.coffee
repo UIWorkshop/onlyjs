@@ -13,10 +13,22 @@ module.exports = (grunt) ->
             css:
                 files: 'generator/style.js',
                 tasks: 'css'
+            js:
+                files: 'generator/javascript.js',
+                tasks: 'js'
         copy:
             source:
                 src: 'source/*',
                 dest: 'app/'
+
+        uglify:
+            options: 
+                beautify: true,
+                banner: '(function (win, undefined) {\n\n',
+                footer: '\n\n})(window);'
+            dev:
+                files:
+                    'app/script.js': ['generator/javascript.js']
         connect:
             dev:
                 options:
@@ -34,12 +46,14 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-connect'
     grunt.loadNpmTasks 'grunt-contrib-copy'
+    grunt.loadNpmTasks 'grunt-contrib-uglify'
     grunt.loadNpmTasks 'grunt-absurd'
 
     grunt.registerTask 'html', 'generate html', ()->
         html = eval grunt.file.read('generator/html.js')
         grunt.file.write 'app/index.html', html
 
+    grunt.registerTask 'js', ['uglify:dev']
     grunt.registerTask 'css', ['absurd:task']
     grunt.registerTask 'server', ['connect:dev']
-    grunt.registerTask 'default', ['jshint', 'html', 'css', 'copy:source','watch']
+    grunt.registerTask 'default', ['jshint', 'html', 'css', 'js', 'copy:source','watch']
