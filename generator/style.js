@@ -7,7 +7,7 @@ module.exports = function(api) {
         gray: '#cccccc'
     };
     var size = {
-        container: ['1280px'],
+        container: ['1280px', '960px', 'auto'],
         header: '80px',
         nav: '120px',
         link: {
@@ -27,6 +27,10 @@ module.exports = function(api) {
     };
 
     // mixin
+    function url (url) {
+        return 'url(' + url + ')';
+    }
+
     function bar (height, position) {
         var style = {
             display: 'block',
@@ -81,10 +85,16 @@ module.exports = function(api) {
         return {
             '@font-face': {
                 fontFamily: fontName,
-                'src ': 'url(source/' + fontFileName + '.ttf?)',
-                src: 'url(source/' + fontFileName + '.ttf?) format(truetype)'
+                'src ': url('source/' + fontFileName + '.ttf?'),
+                src: url('source/' + fontFileName + '.ttf?') + ' format(truetype)'
             }
         };
+    }
+
+    function media (max, content) {
+        var style = {}; 
+        style['@media all and (max-width: ' + max + 'px)'] = content();
+        return style;
     }
 
     // reset
@@ -176,7 +186,7 @@ module.exports = function(api) {
             minHeight: '80%',
             marginTop: size.header,
             backgroundColor: color.gray,
-            backgroundImage: 'url(' + getImage('preview') + ')',
+            backgroundImage: url(getImage('preview')),
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
@@ -184,19 +194,19 @@ module.exports = function(api) {
                 width: size.slogan,
                 textAlign: 'center',
                 margin: size.space + ' auto'
+            },
+            '&.hero-loaded': {
+                backgroundImage: url(getImage('big'))
             }
-        },
-        '.hero /*big*/': {
-            backgroundImage: 'url(' + getImage('big') + ')'
         },
         '.sidebar': {
             ul: {
                 width: timesPixel([size.link.width, size.border], 6),
-                height: size.link.height,
                 margin: '0 auto',
                 li: {
                     float: 'left',
                     borderRight: size.border + ' solid transparent',
+                    borderBottom: size.border + ' solid transparent',
                     a: {
                         display: 'inline-block',
                         width: size.link.width,
@@ -228,14 +238,14 @@ module.exports = function(api) {
             top: 0,
             left: '-30px',
             transform: 'rotate(-30deg)',
-            fontSize: '2em',
+            fontSize: '60px',
             letterSpacing: '-11px',
             opacity: 0.3
         },
         b: {
             top: '-43px',
             left: '40px',
-            fontSize: '2.2em',
+            fontSize: '68px',
             wordBreak: 'break-all',
             width: '3px',
             lineHeight: '10px',
@@ -265,10 +275,70 @@ module.exports = function(api) {
 
     var fontFace = webFont(webFontFamily);
 
+    var responsive = [];
+    responsive.push(media(1600, function () {
+        return {
+            '.hero.hero-loaded': {
+                backgroundImage: url(getImage('normal'))
+            }
+        };
+    }));
+    responsive.push(media(1440, function () {
+        return {
+            body: {
+                fontSize: '14px'
+            },
+            '.container': {
+                width: size.container[1]
+            }
+        };
+    }));
+    responsive.push(media(1023, function () {
+        return {
+            body: {
+                fontSize: '10px'
+            },
+            '.container': {
+                width: size.container[2]
+            },
+            '.sidebar ul': {
+                width: timesPixel([size.link.width, size.border], 3)
+            },
+            '.navigator .nav-section a': {
+                width: timesPixel(size.nav, 0.8)
+            }
+        };
+    }));
+    responsive.push(media(640, function () {
+        return {
+            body: {
+                fontSize: '8px'
+            },
+            '.hero h2': {
+                width: 'auto'
+            },
+            '.sidebar ul': {
+                width: 'auto',
+                li: {
+                    float: 'none',
+                    a: {
+                        width: '100%'
+                    }
+                }
+            },
+            '.navigator .nav-section a': {
+                width: timesPixel(size.nav, 0.6)
+            }
+        };
+    }));
+
     api.add(reset);
     api.add(fontFace);
     api.add(layout);
     api.add(skin);
+    responsive.forEach(function (style) {
+        api.add(style);
+    });
 
     function getImage(size) {
         var images = {

@@ -3,6 +3,10 @@ var cheerio = require('cheerio');
 var importfiles = '<link rel="stylesheet" href="style.css">';
 (function ($) {
 	"use strict";
+	$('head').append(meta('viewport', 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no'))
+			 .append(meta('auther', 'zzz'))
+			 .append(meta('format-detection', 'telephone=no,email=no,adress=no'));
+
 	var data = {
 		title: 'Only JavaScript',
 		slogan: 'Only Use JavaScript To Create The World',
@@ -58,7 +62,7 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 	elm.wrapper.append(elm.hero);
 
 	function createHero () {
-		var $hero = $('<section>').addClass('hero');
+		var $hero = $('<section>').addClass('hero').addClass('hero-loaded');
 		for (var index in arguments) {
 			$hero.append(arguments[index]);
 		}
@@ -147,6 +151,13 @@ var importfiles = '<link rel="stylesheet" href="style.css">';
 		bodyContainers.forEach(function (container) {
 			elm[container.cls] = $('<' + container.tag + '>').addClass(container.cls);
 			elm.body.append(elm[container.cls]);
+		});
+	}
+
+	function meta (name, content) {
+		return $('<meta>').attr({
+			name: name,
+			content: content
 		});
 	}
 
